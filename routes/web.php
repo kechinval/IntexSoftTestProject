@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\OrganizationsController;
+use App\Http\Controllers\XmlController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/organization/{id}', [OrganizationsController::class, 'show']);
+
+// Route::get('/users', [UsersController::class, 'index']);
+// Route::get('/users/create', [UsersController::class, 'create']);
+// Route::post('/users', [UsersController::class], 'store');
+// Route::get('/user/{id}', [UsersController::class, 'show']);
+
+Route::get('/', [OrganizationsController::class, 'index']);
+Route::resource('organizations', OrganizationsController::class)->except([
+    'index'
+]);;
+Route::resource('users', UsersController::class);
+Route::resource('xml', XmlController::class);
