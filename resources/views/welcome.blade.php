@@ -19,13 +19,15 @@
                 margin-bottom: 0px;
                 margin-top: 0px
             }
+            .table td, .table th{
+                vertical-align: middle;
+            }
         </style>
     </head>
     <body class="antialiased container">
         <header class="row" style="display: flex; gap: 1em; margin: 1em 0">
             <a class="btn btn-primary" href="/" role="button">Организации</a>
             <a class="btn btn-primary" href="/users" role="button">Сотрудники</a>
-            <a class="btn btn-primary" href="/users/create" role="button">Добавить сотрудника</a>
             <a class="btn btn-primary" href="/xml" role="button">Upload xml</a>
         </header>
         <div class="container">

@@ -43,10 +43,10 @@
             <div class="form-group">
                 <strong>СНИЛС:</strong>
                 <input type="text" name="snils" class="form-control" placeholder="СНИЛС">
-            </div>
+            </div>       
             <div class="form-group">
                 <strong>Организация:</strong>
-                <select name="organizations_id" class="form-control">
+                <select name="organizations_id[]" class="form-control" multiple="multiple">
                     @foreach ($organizations as $organization)
                         <option value='{{ $organization->id }}'>{{ $organization->name }}</option>
                     @endforeach
@@ -57,6 +57,5 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </div>
-   
 </form>
 @endsection

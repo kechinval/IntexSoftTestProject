@@ -14,7 +14,9 @@
         </div>
         <div>
             <p><b>Организация</b></p>
-            <p>{{ $user->org_name }}</p>
+            @foreach ($user->organizations as $organization)
+                <p><a href="{{ route('organizations.show', ['organization' => $organization->id]) }}">{{ $organization->name }}</a></p>
+            @endforeach
         </div>
     </div>
 @endsection

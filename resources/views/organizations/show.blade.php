@@ -12,7 +12,7 @@
         </div>
         <div>
             <p><b>Сотрудники</b></p>
-                @foreach ($users as $user)
+                @foreach ($organization->users as $user)
                     <p><a href="/users/{{$user->id}}">{{ $user->surname }} {{ $user->name }}</a></p>
                 @endforeach
         </div>

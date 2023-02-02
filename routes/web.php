@@ -16,13 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/organization/{id}', [OrganizationsController::class, 'show']);
-
-// Route::get('/users', [UsersController::class, 'index']);
-// Route::get('/users/create', [UsersController::class, 'create']);
-// Route::post('/users', [UsersController::class], 'store');
-// Route::get('/user/{id}', [UsersController::class, 'show']);
-
 Route::get('/', [OrganizationsController::class, 'index']);
 Route::resource('organizations', OrganizationsController::class)->except([
     'index'

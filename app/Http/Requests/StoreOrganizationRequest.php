@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Users;
+namespace App\Http\Requests;
 
+use App\Rules\OGRN;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreOrganizationsRequest extends FormRequest
+class StoreOrganizationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +25,9 @@ class StoreOrganizationsRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:2|max:255|string|unique:organizations,name',
-            'ogrn' => 'required|numeric|digits:13|unique:organizations',
-            'oktmo' => 'required|numeric|digits:11',
+            'name' => ['required', 'min:2', 'max:255', 'string', 'unique:organizations,name'],
+            'ogrn' => ['required', 'numeric', 'digits:13', 'unique:organizations,ogrn', new OGRN()],
+            'oktmo' => ['required', 'numeric', 'digits:11'],
         ];
     }
 }

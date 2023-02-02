@@ -21,8 +21,6 @@ return new class extends Migration
             $table->date('birthdate')->nullable();
             $table->string('inn')->unique();
             $table->string('snils')->uniqe();
-            $table->unsignedBigInteger('organizations_id');
-            $table->foreign('organizations_id')->references('id')->on('organizations');
             $table->timestamps();
         });
     }

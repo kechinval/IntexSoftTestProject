@@ -9,10 +9,10 @@ class Users extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['surname', 'name', 'patronymic', 'birthdate', 'inn', 'snils', 'organizations_id'];
+    protected $fillable = ['surname', 'name', 'patronymic', 'birthdate', 'inn', 'snils',];
 
-    public function Organization()
+    public function Organizations()
     {
-        return $this->belongsTo(Organizations::class);
+        return $this->belongsToMany(Organizations::class, 'organization_user', 'user_id', 'organization_id');
     }
 }
