@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "708ee79215dc2ffc4b3bc0847fe9d287",
+    "content-hash": "bad4b604b98a5e3666faff7887533425",
     "packages": [
         {
             "name": "brick/math",
@@ -2960,6 +2960,141 @@
                 }
             ],
             "time": "2022-12-31T22:20:34+00:00"
+        },
+        {
+            "name": "sbwerewolf/json-serialize-trait",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SbWereWolf/json-serialize-trait.git",
+                "reference": "62c7395a60ad348d9bc91cd6b0cb20d823ad2a8c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SbWereWolf/json-serialize-trait/zipball/62c7395a60ad348d9bc91cd6b0cb20d823ad2a8c",
+                "reference": "62c7395a60ad348d9bc91cd6b0cb20d823ad2a8c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "": [
+                        "src/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nikolay Volkhin",
+                    "email": "ulfnew@gmail.com"
+                }
+            ],
+            "description": "Library with trait of ability to output all properties of class-exemplar at call json_encode()",
+            "support": {
+                "issues": "https://github.com/SbWereWolf/json-serialize-trait/issues",
+                "source": "https://github.com/SbWereWolf/json-serialize-trait/tree/v1.0.1"
+            },
+            "time": "2023-01-24T01:03:00+00:00"
+        },
+        {
+            "name": "sbwerewolf/language-specific",
+            "version": "8.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SbWereWolf/language-specific.git",
+                "reference": "0122e1f73b95eb45af70b6c302b08b1fd55f75a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SbWereWolf/language-specific/zipball/0122e1f73b95eb45af70b6c302b08b1fd55f75a9",
+                "reference": "0122e1f73b95eb45af70b6c302b08b1fd55f75a9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.4",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nikolay Volkhin",
+                    "email": "ulfnew@gmail.com"
+                }
+            ],
+            "description": "Library for using PHP specific features",
+            "support": {
+                "issues": "https://github.com/SbWereWolf/language-specific/issues",
+                "source": "https://github.com/SbWereWolf/language-specific/tree/8.0.0"
+            },
+            "time": "2021-12-31T22:54:33+00:00"
+        },
+        {
+            "name": "sbwerewolf/xml-navigator",
+            "version": "v7.2.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SbWereWolf/xml-navigator.git",
+                "reference": "9fea6345c31a33fc6f303253a1260f1c57bdc61d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SbWereWolf/xml-navigator/zipball/9fea6345c31a33fc6f303253a1260f1c57bdc61d",
+                "reference": "9fea6345c31a33fc6f303253a1260f1c57bdc61d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-libxml": "*",
+                "ext-xmlreader": "*",
+                "sbwerewolf/json-serialize-trait": "^1.0",
+                "sbwerewolf/language-specific": "^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "": [
+                        "src/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Nikolay Volkhin",
+                    "email": "ulfnew@gmail.com"
+                }
+            ],
+            "description": "Library for navigation through xml",
+            "support": {
+                "issues": "https://github.com/SbWereWolf/xml-navigator/issues",
+                "source": "https://github.com/SbWereWolf/xml-navigator/tree/v7.2.8"
+            },
+            "time": "2023-01-31T01:47:10+00:00"
         },
         {
             "name": "symfony/console",
@@ -7880,7 +8015,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0.2"
+        "php": "^8.0.2",
+        "ext-simplexml": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"

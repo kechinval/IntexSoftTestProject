@@ -2,7 +2,8 @@
 
 namespace App\Services;
 
-use App\Http\Requests\UpdateOrganizationRequest;
+use App\Http\Requests\CreateOrUpdateOrganizationRequest;
+use App\Http\Requests\StoreOrganizationRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\Organizations;
 use App\Models\Users;
@@ -10,50 +11,58 @@ use Illuminate\Support\Facades\DB;
 
 class FileService
 {
-    public function parseXml($request)
+    public function parseXml($file)
     {
-        foreach ($request as $org0) {
-            $org = [
-                'name' => (string)$org0->attributes()['displayName'],
-                'ogrn' => (string)$org0->attributes()['ogrn'],
-                'oktmo' => (string)$org0->attributes()['oktmo']
-            ];
+        $xml = new \XMLReader();
+        $xml->open($file);
 
-            try {
-                $rules = new UpdateOrganizationRequest();
-                $organization = Organizations::updateOrCreate(['ogrn' => $org['ogrn']], validator($org, $rules->rules())->validated());
-            } catch (\Exception $exception){
-                DB::rollBack();
-                return back()->with('error', $exception->getMessage());
-            }
+        while ($xml->read()) {
 
-            foreach ($org0 as $user0) {
-                $currentUser = [
-                    'surname' => (string)$user0->attributes()['lastname'],
-                    'name' => (string)$user0->attributes()['firstname'],
-                    'patronymic' => (string)$user0->attributes()['middlename'],
-                    'birthdate' => (string)$user0->attributes()['birthday'] ?: null,
-                    'inn' => (string)$user0->attributes()['inn'],
-                    'snils' => (string)$user0->attributes()['snils']
+            if ($xml->nodeType == \XMLReader::ELEMENT && $xml->name == 'org') {
+
+                $org = [
+                    'name' => $xml->getAttribute('displayName'),
+                    'ogrn' => $xml->getAttribute('ogrn'),
+                    'oktmo' => $xml->getAttribute('oktmo')
                 ];
 
                 try {
-                    $rules = new UserRequest();
-                    $validatedUser = validator($currentUser, $rules->rules())->validated();
-                    if ($validatedUser) {
-                        DB::transaction(function () use ($validatedUser, $organization) {
-                            // $user = Users::updateOrCreate(['inn' => $validatedUser['inn']], $validatedUser);
-                            $user = new Users($validatedUser);
-                            $user->save();
-                            $user->organizations()->attach($organization->id);
-                        });
-                    }
+                    $rules = new CreateOrUpdateOrganizationRequest();
+                    $organization = Organizations::updateOrCreate(['ogrn' => $org['ogrn']], validator($org, $rules->rules($org))->validated());
                 } catch (\Exception $exception) {
                     DB::rollBack();
                     return back()->with('error', $exception->getMessage());
                 }
+
+                if ($xml->readInnerXml()) {
+                    $users = simplexml_load_string($xml->readOuterXML());
+                    foreach ($users as $user) {
+                        $currentUser = [
+                            'surname' => (string)$user->attributes()['lastname'],
+                            'name' => (string)$user->attributes()['firstname'],
+                            'patronymic' => (string)$user->attributes()['middlename'],
+                            'birthdate' => (string)$user->attributes()['birthday'] ?: null,
+                            'inn' => (string)$user->attributes()['inn'],
+                            'snils' => (string)$user->attributes()['snils']
+                        ];
+
+                        try {
+                            $rules = new UserRequest();
+                            $validatedUser = validator($currentUser, $rules->rules())->validated();
+                            DB::transaction(function () use ($validatedUser, $organization, $rules) {
+                                $user = new Users($validatedUser);
+                                $user->save();
+                                $user->organizations()->sync($organization->id);
+                            });
+                        } catch (\Exception $exception) {
+                            DB::rollBack();
+                        }
+                    }
+                }
             }
         }
+        $xml->close();
+
         return back()->with('success', 'Файл был импортирован');
     }
 }
