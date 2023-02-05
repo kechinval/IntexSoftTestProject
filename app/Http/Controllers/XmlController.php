@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\FileService;
+use SbWereWolf\XmlNavigator\Convertation\FastXmlToArray;
 
 class XmlController extends Controller
 {
@@ -15,14 +16,12 @@ class XmlController extends Controller
 
     public function store(Request $request)
     {
-        if (! $request->hasFile('file')) {
-            return back()->with('error', 'Error mf');
+        if (!$request->hasFile('file')) {
+            return back()->with('error', 'Error: no file given');
         }
-        $xmlDataString = file_get_contents($request->file('file'));
-        $xmlObject = simplexml_load_string($xmlDataString);
 
         $service = new FileService();
-        $service->parseXml($xmlObject);
+        $service->parseXml($request->file('file'));
 
         return redirect()->back();
     }
